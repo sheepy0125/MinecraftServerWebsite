@@ -22,8 +22,6 @@ export default class OtherLinks extends Component {
 	displayLinks = () => {
 		let otherLinkItems = [];
 
-		console.log(this.state);
-
 		this.state.otherLinks.forEach((link) => {
 			otherLinkItems.push(
 				<li key={link.name} className="text-blue-500 hover:underline text-lg">
