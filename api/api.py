@@ -71,6 +71,13 @@ def get_connection_instructions_route() -> dict:
 		connection_instructions_dict: dict = load(connection_instructions_file)
 		return {"worked": True, "instructions": connection_instructions_dict["instructions"], "ip_address": connection_instructions_dict["ipAddress"]}
 
+# Get other links
+@api.route("/get_other_links")
+@limiter.limit("1 per second")
+def get_other_links_route() -> dict:
+	with open("json_files/other_links.json") as other_links_file:
+		return {"worked": True, "links": load(other_links_file)}
+
 # Contact Pink_Sheepy
 @api.route("/contact_sheepy", methods=["POST"])
 @limiter.limit("1 per 3 minute")

@@ -12,4 +12,5 @@ package-lock.json
 /api/json_files/players_online_information.json
 /api/json_files/server_status_information.json
 /api/json_files/whitelisted_players.json
+api/json_files/other_links.json
 /api/venv

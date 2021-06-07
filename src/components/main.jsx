@@ -7,6 +7,7 @@ import ServerStatus from "./serverStatus.jsx";
 import PlayersOnline from "./playersOnline.jsx";
 import WhitelistedPlayers from "./whitelistedPlayers.jsx";
 import Contact from "./contact.jsx";
+import OtherLinks from "./otherLinks.jsx";
 
 export default class Main extends Component {
 	render = () => {
@@ -27,6 +28,7 @@ export default class Main extends Component {
 						<div className="border-2 border-gray-100 shadow-2xl text-center m-4 rounded-lg">
 							<Rules />
 							<ConnectionInstructions />
+							<OtherLinks />
 						</div>
 
 						<Contact />

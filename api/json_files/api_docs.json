@@ -36,6 +36,12 @@
 		"exampleOutput": {"worked": true, "instructions": ["Instruction 1", "Instruction 2", "Instruction 3"], "ip_address": "8.8.8.8"},
 		"method": "get"
 	},
+	"/get_other_links": {
+		"explanation": "Tells other links that are related.",
+		"exampleInput": null,
+		"exampleOutput": {"worked": true, "links": [{"name": "Example", "url": "https://www.example.com/"}]},
+		"method": "get"
+	},
 	"/contact_sheepy": {
 		"explanation": "Sends to send a webhook to contact sheepy",
 		"exampleInput": {"username": "Pink_Sheepy", "message": "Hello, World! This is a message."},
