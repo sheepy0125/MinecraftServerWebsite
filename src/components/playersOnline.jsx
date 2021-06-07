@@ -46,6 +46,11 @@ export default class PlayersOnline extends Component {
 
 	componentDidMount = () => {
 		this.getPlayersOnline();
+		this.realtimeUpdate = setInterval(this.getPlayersOnline, 5000);
+	};
+
+	componentWillUnmount = () => {
+		clearInterval(this.realtimeUpdate);
 	};
 
 	render = () => {
@@ -54,10 +59,7 @@ export default class PlayersOnline extends Component {
 				<p className="font-semibold">Players online</p>
 				<p>{this.state.messageFlashed}</p>
 				{this.state.playersOnline !== null ? this.displayPlayers() : "No information."}
-				<br />
-				<button className="hover:bg-red-100 border-red-100 border-2" onClick={this.getPlayersOnline}>
-					Refresh
-				</button>
+				<p>This updates once every 5 seconds.</p>
 			</div>
 		);
 	};

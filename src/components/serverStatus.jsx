@@ -34,6 +34,11 @@ export default class ServerStatus extends Component {
 
 	componentDidMount = () => {
 		this.getStatus();
+		this.realtimeUpdate = setInterval(this.getStatus, 5000);
+	};
+
+	componentWillUnmount = () => {
+		clearInterval(this.realtimeUpdate);
 	};
 
 	render = () => {
@@ -42,10 +47,7 @@ export default class ServerStatus extends Component {
 				<p className="font-semibold">Server status</p>
 				<p>{this.state.messageFlashed}</p>
 				{this.state.serverStatusInformation !== null ? this.displayStatus() : "No information."}
-				<br />
-				<button className="hover:bg-red-100 border-red-100 border-2" onClick={this.getStatus}>
-					Refresh
-				</button>
+				<p>This updates once every 5 seconds.</p>
 			</div>
 		);
 	};
