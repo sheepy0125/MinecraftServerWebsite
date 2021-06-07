@@ -1,0 +1,6 @@
+{
+	"/ping": "Tells if the bot is working properly",
+	"/status": "Tells server uptime/downtime and tells who is playing and how long they have been playing for",
+	"/whitelist": "Tells all whitelisted players",
+	"/website": "Tells the link to the server website"
+}

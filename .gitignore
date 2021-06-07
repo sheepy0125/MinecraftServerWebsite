@@ -1,0 +1,15 @@
+/node_modules
+/.vscode
+/api/.flaskenv
+*.lock
+package-lock.json
+/api/__pycache__
+.prettierignore
+
+/api/json_files/config.json
+/api/json_files/connection_instructions.json
+/api/json_files/rules.json
+/api/json_files/players_online_information.json
+/api/json_files/server_status_information.json
+/api/json_files/whitelisted_players.json
+/api/venv

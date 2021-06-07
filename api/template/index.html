@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Minecraft Server Website API</title>
+		<style>
+			html {
+				background-color: beige;
+			}
+			body {
+				width: max-content;
+				background-color: azure;
+				border: black 1px solid;
+				margin: 1em auto;
+				padding: 1em;
+			}
+			p {
+				padding: 0;
+				margin: 0;
+			}
+			table,
+			td,
+			th {
+				background-color: white;
+				border: 1px solid black;
+			}
+			table {
+				border-collapse: collapse;
+				margin: 0 auto;
+				width: 90vw;
+			}
+			tr {
+				display: flex;
+			}
+			td,
+			th {
+				flex: 1;
+				overflow: scroll;
+				padding: 5px;
+			}
+			.code {
+				background-color: darkslategray;
+				color: white;
+				font-style: italic;
+			}
+		</style>
+	</head>
+
+	<body>
+		<p>This is the API for the Minecraft Server Website, written by sheepy0125 (sheepy#8665).</p>
+		<p>Documentation:</p>
+		<table>
+			<tr>
+				<th>Route</th>
+				<th>Explanation</th>
+				<th>Example input</th>
+				<th>Example output</th>
+				<th>Method</th>
+			</tr>
+
+			{% for route_information in route_docs.items() %}
+
+			<tr>
+				<td>{{ route_information[0] }}</td>
+				<td>{{ route_information[1]["explanation"] }}</td>
+				<td>{{ route_information[1]["exampleInput"] }}</td>
+				<td>{{ route_information[1]["exampleOutput"] }}</td>
+				<td>{{ route_information[1]["method"] }}</td>
+			</tr>
+
+			{% endfor %}
+		</table>
+		<hr />
+		<p>Changelog:</p>
+		<ul>
+			<li>6/5/2021 - Initial release</li>
+		</ul>
+	</body>
+</html>

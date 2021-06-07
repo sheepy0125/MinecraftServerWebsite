@@ -1,0 +1,45 @@
+{
+	"/ping": {"explanation": "Tells if the API is up or not (it probably is!)", "exampleOutput": {"worked": true}, "exampleInput": null, "method": "get"},
+	"/get_players_online_information": {
+		"explanation": "Tells who is currently playing on the server and how long they have been playing for. Note: `joinTime` is the UNIX timestamp",
+		"exampleInput": null,
+		"exampleOutput": {
+			"worked": true,
+			"player_informations": {"Pink_Sheepy": {"joinTime": 1623029126, "time": 61, "timeFormatted": "0 hours 1 minutes 1 seconds"}}
+		},
+		"method": "get"
+	},
+	"/get_server_status": {
+		"explanation": "Tells if the server is up and the uptime or the downtime. Note: `firstPingTime` is the UNIX timestamp",
+		"exampleInput": null,
+		"exampleOutput": {
+			"worked": true,
+			"information": {"serverUp": true, "firstPingTime": 1623029100, "time": 87, "timeFormatted": "0 hours 1 minutes 27 seconds"}
+		},
+		"method": "get"
+	},
+	"/get_whitelisted_players": {
+		"explanation": "Tells all whitelisted players",
+		"exampleInput": null,
+		"exampleOutput": {"worked": true, "players": ["Pink_Sheepy", "kaplonk", "LaCrafty"]},
+		"method": "get"
+	},
+	"/get_rules": {
+		"explanation": "Tells the rules",
+		"exampleInput": null,
+		"exampleOutput": {"worked": true, "rules": ["Don't kill sheep.", "Don't eat mutton.", "Don't explode sheep."]},
+		"method": "get"
+	},
+	"/get_connection_instructions": {
+		"explanation": "Tells the information for connecting to the server and the IP address for connecting.",
+		"exampleInput": null,
+		"exampleOutput": {"worked": true, "instructions": ["Instruction 1", "Instruction 2", "Instruction 3"], "ip_address": "8.8.8.8"},
+		"method": "get"
+	},
+	"/contact_sheepy": {
+		"explanation": "Sends to send a webhook to contact sheepy",
+		"exampleInput": {"username": "Pink_Sheepy", "message": "Hello, World! This is a message."},
+		"exampleOutput": {"worked": true},
+		"method": "post"
+	}
+}
