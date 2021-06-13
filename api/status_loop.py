@@ -11,17 +11,30 @@ players_online_information.json
 
 from mcstatus import MinecraftServer
 from time import time, sleep, gmtime, strftime
+from datetime import datetime, time as dt_time
 from json import load, dump
+from requests import post
 
 with open("json_files/config.json") as config_file:
 	config_dict = load(config_file)
 	LOOP_INTERVAL = config_dict["loopInterval"]
 	SERVER_LOCAL_IP = config_dict["serverLocalIP"]
-	
+	EXTERNAL_IP = config_dict["publicIP"]
+	ANOMALY_WEBHOOK_URL = config_dict["anomalyWebhookURL"]
 
-SERVER = MinecraftServer.lookup(f"{SERVER_LOCAL_IP}:25565")
+SERVER = MinecraftServer.lookup(f"{EXTERNAL_IP}:25565")
+SERVER_LOCAL = MinecraftServer.lookup(f"{SERVER_LOCAL_IP}:25565")
 
-""" Loop """	
+# Ping anomaly
+def ping_anomaly(message_to_send):
+	data_to_send = {
+		"username": "Anomaly detector bot",
+		"content": f"{message_to_send}"
+	}
+	post(ANOMALY_WEBHOOK_URL, json=data_to_send, headers={
+		"Content-Type": "application/json"}).raise_for_status()
+
+""" Loop """
 # Repeat forever
 while True:
 	# Open the information files
@@ -62,11 +75,17 @@ while True:
 				players_online_dict[player]["timeFormatted"] = strftime("%H hours %M minutes %S seconds", gmtime(players_online_dict[player]["time"]))
 
 			# Delete extra players
+			players_left = 0 # This is for checking if a bunch of players left
 			for player in list(players_online_dict.keys()):
 				if player not in players_online:
+					players_left += 1
 					del players_online_dict[player]
+			
+			# Anomaly detection
+			if players_left >= 2:
+				ping_anomaly(message_to_send=f"Two or more players left at once. ({players_left}), but the external connection is up.")
 
-		except ConnectionRefusedError:
+		except ConnectionError:
 			# Server is offline
 
 			# If it has just gone offline (it's still set as up)
@@ -76,6 +95,20 @@ while True:
 				server_status_dict["firstPingTime"] = 0
 				server_status_dict["lastPingTime"] = current_time
 				players_online_dict = {}
+
+				# Send anomaly if it is not just restarting (restarts at 5 A.M.)
+				min_time = dt_time(4, 55, 0) # 4:55 A.M.
+				max_time = dt_time(5, 5, 0) # 5:05 A.M.
+				
+				if not (max_time >= datetime.now().time() >= min_time): # Returns True if the current time is inbetween the min_time and max_time
+					# Check if it's just the external connections
+					try:
+						SERVER_LOCAL.ping()
+						message_to_send = "The external connection to the server has gone down!!! @everyone"
+					except ConnectionError:
+						message_to_send = "The server has gone down!!! @everyone"
+					# Send anomaly
+					ping_anomaly(message_to_send=message_to_send)
 			
 		# Set server uptime/downtime
 

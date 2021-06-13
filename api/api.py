@@ -18,7 +18,7 @@ limiter: object = Limiter(api, key_func=get_remote_address)
 
 with open("json_files/config.json") as config_file:
 	config_dict = load(config_file)
-	WEBHOOK_URL = config_dict["webhookURL"]
+	CONTACT_WEBHOOK_URL = config_dict["contactWebhookURL"]
 	PUBLIC_IP_ADDRESS = config_dict["publicIP"]
 
 """ Routes """
@@ -90,7 +90,7 @@ def contact_sheepy_route() -> dict:
 		"username": username,
 		"content": f"{message} \n\nSent at {time()}. Ping: <@!246795601709105153>"
 	}
-	post(WEBHOOK_URL, json=data_to_send, headers={
+	post(CONTACT_WEBHOOK_URL, json=data_to_send, headers={
 		"Content-Type": "application/json"}).raise_for_status()
 
 	return {"worked": True}
